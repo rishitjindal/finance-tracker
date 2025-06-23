@@ -24,16 +24,18 @@ const loginForm = document.getElementById("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const username = document.getElementById("loginUsername").value;
     const password = document.getElementById("loginPassword").value;
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
     const match = users.find(u => u.username === username && u.password === password);
+
     if (match) {
-      localStorage.setItem("loggedInUser", username);
-      window.location.href = "dashboard.html";
+      localStorage.setItem("loggedInUser", username);  // save logged in user
+      window.location.href = "dashboard.html";         // ✅ redirect to main page
     } else {
-      alert("Invalid credentials");
+      alert("Invalid username or password");
     }
   });
 }
