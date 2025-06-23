@@ -2,45 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard | FinVista</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Dashboard - FinVista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js" defer></script>
 </head>
-<body>
-  <nav>
-    <h1>FinVista</h1>
-    <button onclick="logout()">Logout</button>
+<body class="bg-gray-100 min-h-screen">
+  <nav class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-indigo-600">FinVista</h1>
+    <div class="flex gap-4 items-center">
+      <span class="text-sm text-gray-600">Hi, <strong id="user-display"></strong></span>
+      <button onclick="logout()" class="text-red-600 hover:underline">Logout</button>
+    </div>
   </nav>
-  <main>
-    <h2>Welcome, <span id="user-display"></span></h2>
-    <div class="stats">
-      <div class="card">Income: ₹<span id="income">0</span></div>
-      <div class="card">Expense: ₹<span id="expense">0</span></div>
-      <div class="card">Balance: ₹<span id="balance">0</span></div>
+
+  <main class="max-w-3xl mx-auto p-6 space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="card bg-white p-4 rounded shadow">
+        <h2 class="text-sm text-gray-500">Income</h2>
+        <p class="text-xl font-semibold text-green-600">₹<span id="income">0</span></p>
+      </div>
+      <div class="card bg-white p-4 rounded shadow">
+        <h2 class="text-sm text-gray-500">Expense</h2>
+        <p class="text-xl font-semibold text-red-600">₹<span id="expense">0</span></p>
+      </div>
+      <div class="card bg-white p-4 rounded shadow">
+        <h2 class="text-sm text-gray-500">Balance</h2>
+        <p class="text-xl font-semibold text-indigo-600">₹<span id="balance">0</span></p>
+      </div>
     </div>
 
-    <form id="transaction-form">
-      <input type="text" id="desc" placeholder="Description" required>
-      <input type="number" id="amount" placeholder="Amount" required>
-      <select id="category">
-        <option>Food</option>
-        <option>Rent</option>
-        <option>Shopping</option>
-        <option>Travel</option>
-        <option>Other</option>
-      </select>
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
-      <button type="submit">Add Transaction</button>
+    <form id="transaction-form" class="bg-white p-4 rounded shadow space-y-4">
+      <h3 class="text-lg font-semibold">Add Transaction</h3>
+      <input type="text" id="desc" placeholder="Description" class="w-full border border-gray-300 rounded p-2" required>
+      <input type="number" id="amount" placeholder="Amount" class="w-full border border-gray-300 rounded p-2" required>
+      <div class="flex gap-4">
+        <select id="category" class="flex-1 border border-gray-300 rounded p-2">
+          <option>Food</option>
+          <option>Rent</option>
+          <option>Travel</option>
+          <option>Other</option>
+        </select>
+        <select id="type" class="flex-1 border border-gray-300 rounded p-2">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">Add</button>
     </form>
 
-    <canvas id="expenseChart"></canvas>
+    <section>
+      <h3 class="text-lg font-semibold mb-2">Transaction History</h3>
+      <ul id="transaction-list" class="space-y-2"></ul>
+    </section>
 
-    <h3>Transactions</h3>
-    <ul id="transaction-list"></ul>
+    <section>
+      <h3 class="text-lg font-semibold mb-2">Spending Breakdown</h3>
+      <div class="bg-white p-4 rounded shadow">
+        <canvas id="expenseChart" height="200"></canvas>
+      </div>
+    </section>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dashboard.js"></script>
 </body>
 </html>
