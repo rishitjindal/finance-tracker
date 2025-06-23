@@ -1,5 +1,55 @@
-<script>
-  if (!localStorage.getItem("loggedInUser")) {
-    window.location.href = "index.html";
-  }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script>
+    // redirect if not logged in
+    if (!localStorage.getItem("loggedInUser")) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <div class="container">
+    <h1>💸 Finance Tracker Dashboard</h1>
+
+    <div class="summary">
+      <div><strong>Balance:</strong> ₹<span id="balance">0</span></div>
+      <div><strong>Income:</strong> ₹<span id="income">0</span></div>
+      <div><strong>Expense:</strong> ₹<span id="expense">0</span></div>
+    </div>
+
+    <form id="transaction-form">
+      <input type="text" id="desc" placeholder="Description" required />
+      <input type="number" id="amount" placeholder="Amount" required />
+      <select id="category">
+        <option>Food</option>
+        <option>Rent</option>
+        <option>Shopping</option>
+        <option>Other</option>
+      </select>
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="transaction-list"></ul>
+    <canvas id="expenseChart" width="300" height="300"></canvas>
+
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
