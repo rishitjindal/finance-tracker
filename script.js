@@ -77,3 +77,39 @@ function logout() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "index.html";
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const user = localStorage.getItem("loggedInUser");
+  const form = document.getElementById("transaction-form");
+  const desc = document.getElementById("desc");
+  const amount = document.getElementById("amount");
+  const category = document.getElementById("category");
+  const type = document.getElementById("type");
+  const list = document.getElementById("transaction-list");
+
+  let transactions = JSON.parse(localStorage.getItem(`${user}_transactions`)) || [];
+
+  function render() {
+    list.innerHTML = "";
+    transactions.forEach(t => {
+      const li = document.createElement("li");
+      li.textContent = `${t.desc} - ₹${t.amount} (${t.category}, ${t.type})`;
+      list.appendChild(li);
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const newTransaction = {
+      desc: desc.value,
+      amount: +amount.value,
+      category: category.value,
+      type: type.value
+    };
+    transactions.push(newTransaction);
+    localStorage.setItem(`${user}_transactions`, JSON.stringify(transactions));
+    render();
+    form.reset();
+  });
+
+  render();
+});
