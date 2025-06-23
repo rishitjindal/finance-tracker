@@ -1,29 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const user = localStorage.getItem("loggedInUser");
-  document.getElementById("user-name").textContent = user;
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
 
+  if (signupForm) {
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("signup-username").value;
+      const password = document.getElementById("signup-password").value;
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      users.push({ username, password });
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedInUser", username);
+      window.location.href = "dashboard.html";
+    });
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("login-username").value;
+      const password = document.getElementById("login-password").value;
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find(u => u.username === username && u.password === password);
+      if (user) {
+        localStorage.setItem("loggedInUser", username);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid credentials");
+      }
+    });
+  }
+});
+
+/* === dashboard.js === */
+document.addEventListener("DOMContentLoaded", function () {
+  const username = localStorage.getItem("loggedInUser");
+  if (!username) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  document.getElementById("user-display").textContent = username;
   const incomeEl = document.getElementById("income");
   const expenseEl = document.getElementById("expense");
   const balanceEl = document.getElementById("balance");
   const listEl = document.getElementById("transaction-list");
   const form = document.getElementById("transaction-form");
 
-  let transactions = JSON.parse(localStorage.getItem(`${user}_transactions`)) || [];
+  let transactions = JSON.parse(localStorage.getItem(`${username}_transactions`)) || [];
 
   function updateUI() {
     listEl.innerHTML = "";
     let income = 0, expense = 0;
 
     transactions.forEach(t => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${t.desc}</td>
-        <td>₹${t.amount}</td>
-        <td>${t.category}</td>
-        <td>${t.type}</td>
-      `;
-      listEl.appendChild(row);
-
+      const li = document.createElement("li");
+      li.textContent = `${t.desc} - ₹${t.amount} (${t.category}, ${t.type})`;
+      listEl.appendChild(li);
       if (t.type === "income") income += t.amount;
       else expense += t.amount;
     });
@@ -42,31 +75,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const type = document.getElementById("type").value;
 
     transactions.push({ desc, amount, category, type });
-    localStorage.setItem(`${user}_transactions`, JSON.stringify(transactions));
-
+    localStorage.setItem(`${username}_transactions`, JSON.stringify(transactions));
     form.reset();
     updateUI();
   });
 
   function updateChart() {
     const ctx = document.getElementById("expenseChart").getContext("2d");
-    const data = {};
+    const categoryMap = {};
 
     transactions.forEach(t => {
       if (t.type === "expense") {
-        data[t.category] = (data[t.category] || 0) + t.amount;
+        categoryMap[t.category] = (categoryMap[t.category] || 0) + t.amount;
       }
     });
 
     new Chart(ctx, {
       type: "pie",
       data: {
-        labels: Object.keys(data),
+        labels: Object.keys(categoryMap),
         datasets: [{
-          data: Object.values(data),
-          backgroundColor: ["#f94144", "#f3722c", "#90be6d", "#577590", "#ffbe0b"]
+          data: Object.values(categoryMap),
+          backgroundColor: ["#ff6384", "#36a2eb", "#cc65fe", "#ffce56", "#4bc0c0"]
         }]
-      }
+      },
+      options: { responsive: true, maintainAspectRatio: false }
     });
   }
 
@@ -77,39 +110,3 @@ function logout() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "index.html";
 }
-document.addEventListener("DOMContentLoaded", function () {
-  const user = localStorage.getItem("loggedInUser");
-  const form = document.getElementById("transaction-form");
-  const desc = document.getElementById("desc");
-  const amount = document.getElementById("amount");
-  const category = document.getElementById("category");
-  const type = document.getElementById("type");
-  const list = document.getElementById("transaction-list");
-
-  let transactions = JSON.parse(localStorage.getItem(`${user}_transactions`)) || [];
-
-  function render() {
-    list.innerHTML = "";
-    transactions.forEach(t => {
-      const li = document.createElement("li");
-      li.textContent = `${t.desc} - ₹${t.amount} (${t.category}, ${t.type})`;
-      list.appendChild(li);
-    });
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const newTransaction = {
-      desc: desc.value,
-      amount: +amount.value,
-      category: category.value,
-      type: type.value
-    };
-    transactions.push(newTransaction);
-    localStorage.setItem(`${user}_transactions`, JSON.stringify(transactions));
-    render();
-    form.reset();
-  });
-
-  render();
-});
