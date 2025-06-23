@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Investments - FinVista</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investments | FinVista</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { /* same config */ colors: { background: '#f9fafb', surface: '#ffffff', primary: '#6366f1' }, fontFamily: { sans: ['Inter','sans-serif'] }, boxShadow: { soft: '0 2px 10px rgba(0,0,0,0.05)' }, borderRadius: { xl: '1rem' } } } };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="font-sans bg-background min-h-screen">
   <main class="max-w-2xl mx-auto p-6 space-y-6">
-    <h1 class="text-2xl font-bold">📈 Investment Suggestions</h1>
-    <div class="bg-white p-4 rounded shadow space-y-4">
-      <p>Based on your savings, here are some personalized suggestions:</p>
-      <ul class="list-disc pl-5">
-        <li><strong>SIP:</strong> Low-risk, ₹2000/month</li>
-        <li><strong>PPF:</strong> 7.1% annual, tax-saving</li>
-        <li><strong>Mutual Funds:</strong> Moderate risk</li>
-        <li><strong>FD:</strong> 6.5–7.5% return</li>
+    <h1 class="text-2xl font-semibold text-gray-800">📈 Investment Suggestions</h1>
+    <div class="bg-surface p-6 rounded-xl shadow-soft space-y-4">
+      <p class="text-textSecondary">Based on your savings, consider:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>SIP:</strong> Low-risk plan ₹2000/month</li>
+        <li><strong>PPF:</strong> 7.1% annual, tax benefit</li>
+        <li><strong>Mutual Funds:</strong> Moderate growth over 3–5 years</li>
+        <li><strong>FD:</strong> 6.5–7.5% safe return</li>
       </ul>
     </div>
   </main>
