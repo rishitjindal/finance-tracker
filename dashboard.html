@@ -18,15 +18,15 @@
 
   <main class="max-w-3xl mx-auto p-6 space-y-6">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="card bg-white p-4 rounded shadow">
+      <div class="bg-white p-4 rounded shadow">
         <h2 class="text-sm text-gray-500">Income</h2>
         <p class="text-xl font-semibold text-green-600">₹<span id="income">0</span></p>
       </div>
-      <div class="card bg-white p-4 rounded shadow">
+      <div class="bg-white p-4 rounded shadow">
         <h2 class="text-sm text-gray-500">Expense</h2>
         <p class="text-xl font-semibold text-red-600">₹<span id="expense">0</span></p>
       </div>
-      <div class="card bg-white p-4 rounded shadow">
+      <div class="bg-white p-4 rounded shadow">
         <h2 class="text-sm text-gray-500">Balance</h2>
         <p class="text-xl font-semibold text-indigo-600">₹<span id="balance">0</span></p>
       </div>
@@ -38,14 +38,10 @@
       <input type="number" id="amount" placeholder="Amount" class="w-full border border-gray-300 rounded p-2" required>
       <div class="flex gap-4">
         <select id="category" class="flex-1 border border-gray-300 rounded p-2">
-          <option>Food</option>
-          <option>Rent</option>
-          <option>Travel</option>
-          <option>Other</option>
+          <option>Food</option><option>Rent</option><option>Travel</option><option>Other</option>
         </select>
         <select id="type" class="flex-1 border border-gray-300 rounded p-2">
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="income">Income</option><option value="expense">Expense</option>
         </select>
       </div>
       <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">Add</button>
