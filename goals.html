@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Goals - FinVista</title>
+  <script src="goals.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <main class="max-w-2xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">🎯 Savings Goals</h1>
+    <form id="goal-form" class="bg-white p-4 rounded shadow space-y-4 mb-6">
+      <input type="text" id="goal-name" placeholder="Goal name" class="w-full border p-2 rounded" required />
+      <input type="number" id="goal-amount" placeholder="Target Amount" class="w-full border p-2 rounded" required />
+      <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Add Goal</button>
+    </form>
+    <div id="goal-list" class="space-y-4"></div>
+  </main>
+</body>
+</html>
