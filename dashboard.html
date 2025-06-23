@@ -2,28 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Finance Dashboard</title>
+  <title>Dashboard | FinVista</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <script>
-    const user = localStorage.getItem("loggedInUser");
-    if (!user) window.location.href = "index.html";
-  </script>
-
-  <div class="container">
-    <h1>💰 Welcome, <span id="user-name"></span>!</h1>
-
-    <div class="cards">
-      <div class="card income">Income<br>₹<span id="income">0</span></div>
-      <div class="card expense">Expense<br>₹<span id="expense">0</span></div>
-      <div class="card balance">Balance<br>₹<span id="balance">0</span></div>
+  <nav>
+    <h1>FinVista</h1>
+    <button onclick="logout()">Logout</button>
+  </nav>
+  <main>
+    <h2>Welcome, <span id="user-display"></span></h2>
+    <div class="stats">
+      <div class="card">Income: ₹<span id="income">0</span></div>
+      <div class="card">Expense: ₹<span id="expense">0</span></div>
+      <div class="card">Balance: ₹<span id="balance">0</span></div>
     </div>
 
-    <h2>Add Transaction</h2>
     <form id="transaction-form">
-      <input type="text" id="desc" placeholder="Description" required />
-      <input type="number" id="amount" placeholder="Amount" required />
+      <input type="text" id="desc" placeholder="Description" required>
+      <input type="number" id="amount" placeholder="Amount" required>
       <select id="category">
         <option>Food</option>
         <option>Rent</option>
@@ -35,29 +32,15 @@
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
-      <button type="submit">Add</button>
+      <button type="submit">Add Transaction</button>
     </form>
 
-    <h2>History</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Category</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody id="transaction-list"></tbody>
-    </table>
+    <canvas id="expenseChart"></canvas>
 
-    <h2>Category Breakdown</h2>
-    <canvas id="expenseChart" width="300" height="300"></canvas>
-
-    <button class="logout" onclick="logout()">Logout</button>
-  </div>
-
+    <h3>Transactions</h3>
+    <ul id="transaction-list"></ul>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
