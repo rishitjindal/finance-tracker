@@ -32,20 +32,56 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function render() {
-    let inc=0, exp=0;
-    listEl.innerHTML = "";
-    tArr.forEach((t,i)=> {
-      if (t.type==="income") inc+=t.amount; else exp+=t.amount;
-      const li = document.createElement("li");
-      li.textContent = `${t.desc}: ₹${t.amount} (${t.category})`;
-      li.addEventListener("dblclick",()=>{ tArr.splice(i,1); localStorage.setItem(`${u}_transactions`,JSON.stringify(tArr)); render(); });
-      listEl.appendChild(li);
+  let inc = 0, exp = 0;
+  listEl.innerHTML = "";
+
+  tArr.forEach((t, i) => {
+    if (t.type === "income") inc += t.amount;
+    else exp += t.amount;
+
+    const li = document.createElement("li");
+    li.className = "transaction-item";
+
+    const isIncome = t.type === "income";
+    const iconColor = isIncome ? "green" : "red";
+    const sign = isIncome ? "+" : "-";
+
+    li.innerHTML = `
+      <div class="icon-wrapper ${iconColor}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             class="icon">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 8 8 12 12 16"></polyline>
+        </svg>
+      </div>
+      <div class="tx-details">
+        <strong>${t.desc}</strong>
+        <div class="tx-meta">${t.category} • ${t.date}</div>
+      </div>
+      <div class="tx-amount ${isIncome ? "text-green" : "text-red"}">
+        ${sign}₹${t.amount.toLocaleString("en-IN")}
+      </div>
+    `;
+
+    li.addEventListener("dblclick", () => {
+      if (confirm("Delete this transaction?")) {
+        tArr.splice(i, 1);
+        localStorage.setItem(`${u}_transactions`, JSON.stringify(tArr));
+        render();
+      }
     });
-    incEl.textContent = inc;
-    expEl.textContent = exp;
-    balEl.textContent = inc-exp;
-    drawPie();
-  }
+
+    listEl.appendChild(li);
+  });
+
+  incEl.textContent = `₹${inc.toLocaleString("en-IN")}`;
+  expEl.textContent = `₹${exp.toLocaleString("en-IN")}`;
+  balEl.textContent = `₹${(inc - exp).toLocaleString("en-IN")}`;
+
+  drawPie();
+}
+
 
   form.addEventListener("submit", e=>{
     e.preventDefault();
