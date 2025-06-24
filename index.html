@@ -1,44 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-950 text-white">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Finance Tracker — Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-sm bg-gray-900 rounded-xl shadow-xl p-6 space-y-6">
-      <div>
-        <h1 class="text-3xl font-bold text-white mb-1">Sign In</h1>
-        <p class="text-gray-400 text-sm">Welcome back to your finance hub</p>
-      </div>
-      <form id="login-form" class="space-y-4">
-        <input
-          type="text"
-          id="login-username"
-          placeholder="Username"
-          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <input
-          type="password"
-          id="login-password"
-          placeholder="Password"
-          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <button
-          type="submit"
-          class="w-full bg-purple-600 hover:bg-purple-700 transition py-3 rounded-lg font-semibold"
-        >
-          Login
-        </button>
-      </form>
-      <p class="text-center text-sm text-gray-400">
-        Don’t have an account?
-        <a href="signup.html" class="text-purple-400 hover:underline">Sign up</a>
-      </p>
-    </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinanceHub - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>FinanceHub</h2>
+    <ul>
+      <li class="active">Dashboard</li>
+      <li><a href="#">Transactions</a></li>
+      <li><a href="#">Budgets</a></li>
+      <li><a href="#">Goals</a></li>
+      <li><a href="#">Analytics</a></li>
+      <li><a href="#">Accounts</a></li>
+      <li><a href="#">Calendar</a></li>
+      <li><a href="#">Reports</a></li>
+    </ul>
+  </div>
 
-    <script src="auth.js"></script>
-  </body>
+  <main>
+    <header>
+      <h1>Dashboard</h1>
+      <p>Welcome back! Here's your financial overview.</p>
+      <span id="current-date" class="date"></span>
+    </header>
+
+    <section class="cards">
+      <div class="card income">
+        <p>Total Income</p>
+        <h3>$5,000</h3>
+        <span class="change up">+12.5%</span>
+      </div>
+      <div class="card expense">
+        <p>Total Expenses</p>
+        <h3>$100</h3>
+        <span class="change down">-3.2%</span>
+      </div>
+      <div class="card networth">
+        <p>Net Worth</p>
+        <h3>$43,471.25</h3>
+        <span class="change up">+8.1%</span>
+      </div>
+      <div class="card savings">
+        <p>Monthly Savings</p>
+        <h3>$4,900</h3>
+        <span class="change up">+15.3%</span>
+      </div>
+    </section>
+
+    <section class="charts">
+      <h2>Spending Trends</h2>
+      <canvas id="trendChart" height="100"></canvas>
+    </section>
+
+    <section class="bottom-grid">
+      <div class="transactions">
+        <h3>Recent Transactions</h3>
+        <ul>
+          <li><strong>food</strong> - $50 (Dining) - <small>6/24/2025</small></li>
+          <li><strong>salary</strong> + $5000 (Other) - <small>6/24/2025</small></li>
+          <li><strong>movie</strong> - $50 (Entertainment) - <small>6/24/2025</small></li>
+        </ul>
+      </div>
+      <div class="overview">
+        <div>
+          <h4>Budget Overview</h4>
+          <p>Food: $0 / $5000</p>
+        </div>
+        <div>
+          <h4>Goals Progress</h4>
+          <p>Car: $0 / $5,000,000</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
 </html>
