@@ -45,26 +45,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const isIncome = t.type === "income";
     const iconColor = isIncome ? "green" : "red";
     const sign = isIncome ? "+" : "-";
+    const date = t.date || new Date().toISOString().slice(0, 10); // fallback to today
 
     li.innerHTML = `
-      <div class="icon-wrapper ${iconColor}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             class="icon">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 8 8 12 12 16"></polyline>
+      <div class="icon-wrapper ${iconColor}" title="Delete">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             class="icon delete-icon">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6L18.4 19.5a2 2 0 01-2 1.5H7.6a2 2 0 01-2-1.5L5 6"></path>
+          <path d="M10 11v6"></path>
+          <path d="M14 11v6"></path>
+          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
         </svg>
       </div>
+
       <div class="tx-details">
         <strong>${t.desc}</strong>
-        <div class="tx-meta">${t.category} • ${t.date}</div>
+        <div class="tx-meta">${t.category} • ${date}</div>
       </div>
+
       <div class="tx-amount ${isIncome ? "text-green" : "text-red"}">
         ${sign}₹${t.amount.toLocaleString("en-IN")}
       </div>
     `;
 
-    li.addEventListener("dblclick", () => {
+    // Delete on icon click
+    li.querySelector(".delete-icon").addEventListener("click", () => {
       if (confirm("Delete this transaction?")) {
         tArr.splice(i, 1);
         localStorage.setItem(`${u}_transactions`, JSON.stringify(tArr));
