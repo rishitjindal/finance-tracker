@@ -1,51 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-950 text-white">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Finance Tracker - Investments</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="flex h-screen overflow-hidden">
-    <!-- Sidebar -->
-    <aside class="w-20 bg-gray-900 flex flex-col items-center py-6 space-y-6">
-      <a href="dashboard.html" class="nav-icon">🏠</a>
-      <a href="goals.html" class="nav-icon">🎯</a>
-      <a href="emi.html" class="nav-icon">📆</a>
-      <a href="investments.html" class="nav-icon active-nav">📊</a>
-      <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
-    </aside>
-
-    <main class="flex-1 p-6 overflow-y-auto">
-      <h1 class="text-2xl font-bold mb-6">Investment Suggestions 💡</h1>
-
-      <div class="space-y-6">
-        <div class="card bg-gray-800">
-          <h2 class="text-xl font-semibold">Mutual Funds</h2>
-          <p class="text-gray-400">Ideal for medium risk and steady growth.</p>
-        </div>
-        <div class="card bg-gray-800">
-          <h2 class="text-xl font-semibold">Fixed Deposits</h2>
-          <p class="text-gray-400">Low risk, guaranteed returns. Suitable for short-term goals.</p>
-        </div>
-        <div class="card bg-gray-800">
-          <h2 class="text-xl font-semibold">Stock Market</h2>
-          <p class="text-gray-400">Higher returns with higher risk. Best for long-term growth.</p>
-        </div>
-        <div class="card bg-gray-800">
-          <h2 class="text-xl font-semibold">SIP Plans</h2>
-          <p class="text-gray-400">Systematic Investment Plans are good for beginners in investment.</p>
-        </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investments - FinanceHub</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="flex">
+  <aside>
+    <a href="#" class="text-xl font-bold mb-6">₹ FinanceHub</a>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="goals.html">🎯 Goals</a>
+    <a href="emi.html">📆 EMI</a>
+    <a href="investments.html" class="active-nav">📊 Investments</a>
+    <button onclick="logout()">🚪 Logout</button>
+  </aside>
+  <main>
+    <h1>Investments</h1>
+    <p id="current-date"></p>
+    <div class="mt-6">
+      <p>This section allows you to track and simulate returns on stocks, funds, or fixed deposits.</p>
+      <!-- Example placeholder -->
+      <div class="card mt-6">
+        <h3>Sample Investment</h3>
+        <p>Amount: ₹10,000</p>
+        <p>Estimated Return: ₹12,000 in 1 year</p>
       </div>
-    </main>
-
-    <script>
-      if (!localStorage.getItem("loggedInUser")) location.href = "index.html";
-
-      function logout() {
-        localStorage.removeItem("loggedInUser");
-        location.href = "index.html";
-      }
-    </script>
-  </body>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const u = localStorage.getItem("loggedInUser");
+      if (!u) return window.location="index.html";
+      document.getElementById("current-date").textContent = new Date().toLocaleDateString();
+    });
+  </script>
+  <script>
+    function logout(){ localStorage.removeItem("loggedInUser"); window.location="index.html"; }
+  </script>
+</body>
 </html>
