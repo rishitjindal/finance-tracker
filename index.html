@@ -3,82 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FinanceHub - Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>FinanceHub - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="auth.js" defer></script>
 </head>
-<body>
-  <div class="sidebar">
-    <h2>FinanceHub</h2>
-    <ul>
-      <li class="active">Dashboard</li>
-      <li><a href="transaction.html">Transactions</a></li>
-      <li><a href="budget.html">Budgets</a></li>
-      <li><a href="goals.html">Goals</a></li>
-      <li><a href="analytics.html">Analytics</a></li>
-      <li><a href="accounts.html">Accounts</a></li>
-      <li><a href="calender.html">Calendar</a></li>
-      <li><a href="reports.html">Reports</a></li>
-    </ul>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+  <div class="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-md">
+    <h1 class="text-3xl font-bold text-center text-white mb-6">Login to FinanceHub</h1>
+    
+    <form id="login-form" class="space-y-4">
+      <input
+        type="text"
+        id="login-username"
+        placeholder="Username"
+        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        required
+      />
+      <input
+        type="password"
+        id="login-password"
+        placeholder="Password"
+        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        required
+      />
+      <button
+        type="submit"
+        class="w-full bg-purple-600 hover:bg-purple-700 transition py-3 rounded-lg font-semibold text-white"
+      >
+        Login
+      </button>
+    </form>
+
+    <p class="text-center text-sm text-gray-400 mt-4">
+      Don’t have an account?
+      <a href="signup.html" class="text-purple-400 hover:underline">Sign up</a>
+    </p>
   </div>
-
-  <main>
-    <header>
-      <h1>Dashboard</h1>
-      <p>Welcome back! Here's your financial overview.</p>
-      <span id="current-date" class="date"></span>
-    </header>
-
-    <section class="cards">
-      <div class="card income">
-        <p>Total Income</p>
-        <h3>$5,000</h3>
-        <span class="change up">+12.5%</span>
-      </div>
-      <div class="card expense">
-        <p>Total Expenses</p>
-        <h3>$100</h3>
-        <span class="change down">-3.2%</span>
-      </div>
-      <div class="card networth">
-        <p>Net Worth</p>
-        <h3>$43,471.25</h3>
-        <span class="change up">+8.1%</span>
-      </div>
-      <div class="card savings">
-        <p>Monthly Savings</p>
-        <h3>$4,900</h3>
-        <span class="change up">+15.3%</span>
-      </div>
-    </section>
-
-    <section class="charts">
-      <h2>Spending Trends</h2>
-      <canvas id="trendChart" height="100"></canvas>
-    </section>
-
-    <section class="bottom-grid">
-      <div class="transactions">
-        <h3>Recent Transactions</h3>
-        <ul>
-          <li><strong>food</strong> - $50 (Dining) - <small>6/24/2025</small></li>
-          <li><strong>salary</strong> + $5000 (Other) - <small>6/24/2025</small></li>
-          <li><strong>movie</strong> - $50 (Entertainment) - <small>6/24/2025</small></li>
-        </ul>
-      </div>
-      <div class="overview">
-        <div>
-          <h4>Budget Overview</h4>
-          <p>Food: $0 / $5000</p>
-        </div>
-        <div>
-          <h4>Goals Progress</h4>
-          <p>Car: $0 / $5,000,000</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="dashboard.js"></script>
 </body>
 </html>
