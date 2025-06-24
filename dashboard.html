@@ -1,72 +1,42 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard | Finance Tracker</title>
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="logo">💰 Finance Tracker</div>
-      <ul class="nav-links">
-        <li><a href="dashboard.html">🏠 Dashboard</a></li>
-        <li><a href="goals.html">🎯 Goals</a></li>
-        <li><a href="investments.html">📈 Investments</a></li>
-        <li><a href="tools.html">🛠️ Tools</a></li>
-        <li><a href="index.html">🚪 Logout</a></li>
-      </ul>
-    </aside>
-
-    <!-- Main Panel -->
-    <main class="main-content">
-      <header class="topbar">
-        <h2>Dashboard Overview</h2>
-        <input type="text" placeholder="Search..." class="search-box"/>
-      </header>
-
-      <section class="chart-section">
-        <h3>Total Balance: ₹0.00</h3>
-        <div class="chart-placeholder">[ Insert Chart Here ]</div>
-      </section>
-
-      <section class="transactions">
-        <h4>Recent Transactions</h4>
-        <table class="transaction-table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Amount</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="transaction-list">
-            <!-- Populated by dashboard.js -->
-          </tbody>
-        </table>
-      </section>
-    </main>
-
-    <!-- Right Panel -->
-    <aside class="side-panel">
-      <h4>Add New Entry</h4>
-      <form id="entry-form">
-        <input type="text" placeholder="Type (Income/Expense)" required />
-        <input type="number" placeholder="Amount" required />
-        <input type="date" required />
-        <button type="submit">Add Transaction</button>
-      </form>
-
-      <div class="quick-buttons">
-        <button>📤 Export CSV</button>
-        <button>⚙️ Settings</button>
-      </div>
-    </aside>
-  </div>
-
+<body class="flex">
+  <aside>
+    <a href="#" class="text-xl font-bold mb-6">₹ FinanceHub</a>
+    <a href="dashboard.html" class="active-nav">🏠 Dashboard</a>
+    <a href="goals.html">🎯 Goals</a>
+    <a href="emi.html">📆 EMI</a>
+    <a href="investments.html">📊 Investments</a>
+    <button onclick="logout()">🚪 Logout</button>
+  </aside>
+  <main>
+    <h1>Welcome, <span id="user-display"></span></h1>
+    <p id="current-date"></p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div class="card text-green-400">Income: ₹<span id="income">0</span></div>
+      <div class="card text-red-400">Expense: ₹<span id="expense">0</span></div>
+      <div class="card">Balance: ₹<span id="balance">0</span></div>
+    </div>
+    <form id="transaction-form" class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-8">
+      <input id="desc" type="text" placeholder="Description" class="col-span-2"/>
+      <input id="amount" type="number" placeholder="Amount"/>
+      <select id="category"><option>Food</option><option>Transport</option><option>Shopping</option><option>Other</option></select>
+      <select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
+      <button type="submit" class="bg-blue-600 text-white py-2 rounded col-span-full sm:col-span-1">Add</button>
+    </form>
+    <ul id="transaction-list"></ul>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <div><h2>Expenses by Category</h2><canvas id="expenseChart" height="120"></canvas></div>
+      <div><h2>Spending Trends</h2><canvas id="trendChart" height="120"></canvas></div>
+    </div>
+  </main>
   <script src="dashboard.js"></script>
 </body>
 </html>
