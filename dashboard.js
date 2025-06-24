@@ -15,8 +15,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let tArr = JSON.parse(localStorage.getItem(`${u}_transactions`) || "[]");
 
-  let pieChart;
-  let trendChart = new Chart(trendCtx, {
+  // Update summary
+  let inc = 0, exp = 0;
+  tArr.forEach(t => t.type === "income" ? inc += t.amount : exp += t.amount);
+  incEl.textContent = `₹${inc.toLocaleString("en-IN")}`;
+  expEl.textContent = `₹${exp.toLocaleString("en-IN")}`;
+  balEl.textContent = `₹${(inc - exp).toLocaleString("en-IN")}`;
+
+  // Charts
+  new Chart(expCtx, {
+    type: 'pie',
+    data: {
+      labels: [...new Set(tArr.filter(t => t.type === "expense").map(t => t.category))],
+      datasets: [{
+        data: tArr.filter(t => t.type === "expense").reduce((acc, t) => {
+          acc[t.category] = (acc[t.category] || 0) + t.amount;
+          return acc;
+        }, {}),
+        backgroundColor: ["#ef4444", "#3b82f6", "#10b981", "#facc15"]
+      }]
+    }
+  });
+
+  new Chart(trendCtx, {
     type: 'line',
     data: {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -28,40 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }]
     }
   });
-
-  function drawPie() {
-    const cat = {};
-    tArr.filter(t => t.type === "expense").forEach(t => {
-      cat[t.category] = (cat[t.category] || 0) + t.amount;
-    });
-
-    pieChart?.destroy();
-    pieChart = new Chart(expCtx, {
-      type: 'pie',
-      data: {
-        labels: Object.keys(cat),
-        datasets: [{
-          data: Object.values(cat),
-          backgroundColor: ["#ef4444", "#3b82f6", "#10b981", "#facc15", "#8b5cf6"]
-        }]
-      }
-    });
-  }
-
-  function updateSummary() {
-    let inc = 0, exp = 0;
-    tArr.forEach(t => {
-      if (t.type === "income") inc += t.amount;
-      else exp += t.amount;
-    });
-
-    incEl.textContent = `₹${inc.toLocaleString("en-IN")}`;
-    expEl.textContent = `₹${exp.toLocaleString("en-IN")}`;
-    balEl.textContent = `₹${(inc - exp).toLocaleString("en-IN")}`;
-  }
-
-  updateSummary();
-  drawPie();
 });
 
 function logout() {
