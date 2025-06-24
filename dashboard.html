@@ -1,90 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-950 text-white">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Finance Tracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="flex h-screen overflow-hidden">
-
-    <!-- Sidebar -->
-   <!-- Sidebar -->
-<aside class="w-40 bg-gray-900 text-white flex flex-col items-center py-6 space-y-4">
-  <a href="#" class="text-3xl font-bold mb-6">₹</a>
-  <a href="dashboard.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
-    <span class="text-lg">🏠</span>
-    <span class="text-sm font-medium">Home</span>
-  </a>
-  <a href="goals.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
-    <span class="text-lg">🎯</span>
-    <span class="text-sm font-medium">Goals</span>
-  </a>
-  <a href="emi.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
-    <span class="text-lg">📆</span>
-    <span class="text-sm font-medium">EMI</span>
-  </a>
-  <a href="investments.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
-    <span class="text-lg">📊</span>
-    <span class="text-sm font-medium">Investments</span>
-  </a>
-  <button onclick="logout()" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left mt-auto">
-    <span class="text-lg">🚪</span>
-    <span class="text-sm font-medium">Logout</span>
-  </button>
-</aside>
-
-
-    <!-- Main Content -->
-    <main class="flex-1 p-6 bg-gray-950 overflow-y-auto">
-      <h1 class="text-2xl font-bold mb-6">Welcome, <span id="user-display"></span> 👋</h1>
-      <p class="text-sm text-gray-400 mb-4" id="current-date"></p>
-
-      <!-- Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div class="card bg-gray-800 text-green-400 p-4 rounded">Income: ₹<span id="income">0</span></div>
-        <div class="card bg-gray-800 text-red-400 p-4 rounded">Expense: ₹<span id="expense">0</span></div>
-        <div class="card bg-gray-800 text-white p-4 rounded">Balance: ₹<span id="balance">0</span></div>
-      </div>
-
-      <!-- Transaction Form -->
-      <form id="transaction-form" class="grid sm:grid-cols-5 gap-4 mb-8">
-        <input id="desc" type="text" placeholder="Description" class="input col-span-2 p-2 bg-gray-800 text-white rounded" />
-        <input id="amount" type="number" placeholder="Amount" class="input p-2 bg-gray-800 text-white rounded" />
-        <select id="category" class="input p-2 bg-gray-800 text-white rounded">
-          <option>Food</option>
-          <option>Transport</option>
-          <option>Shopping</option>
-          <option>Other</option>
-        </select>
-        <select id="type" class="input p-2 bg-gray-800 text-white rounded">
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
-        <button type="submit" class="btn bg-purple-600 hover:bg-purple-700 transition py-2 rounded col-span-full sm:col-span-1">Add</button>
-      </form>
-
-      <!-- Transaction List -->
-      <div class="mb-10">
-        <h2 class="text-xl font-semibold mb-4">Transactions</h2>
-        <ul id="transaction-list" class="space-y-3"></ul>
-      </div>
-
-      <!-- Charts -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-gray-900 rounded-xl p-6">
-          <h2 class="text-xl font-semibold mb-4">Expenses by Category</h2>
-          <canvas id="expenseChart" height="120"></canvas>
-        </div>
-        <div class="bg-gray-900 rounded-xl p-6">
-          <h2 class="text-xl font-semibold mb-4">Spending Trends</h2>
-          <canvas id="trendChart" height="120"></canvas>
-        </div>
-      </div>
-    </main>
-
-    <script src="dashboard.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="flex">
+  <aside>
+    <a href="#" class="text-xl font-bold mb-6">₹ FinanceHub</a>
+    <a href="dashboard.html" class="active-nav">🏠 Dashboard</a>
+    <a href="goals.html">🎯 Goals</a>
+    <a href="emi.html">📆 EMI</a>
+    <a href="investments.html">📊 Investments</a>
+    <button onclick="logout()">🚪 Logout</button>
+  </aside>
+  <main>
+    <h1>Welcome, <span id="user-display"></span></h1>
+    <p id="current-date"></p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div class="card text-green-400">Income: ₹<span id="income">0</span></div>
+      <div class="card text-red-400">Expense: ₹<span id="expense">0</span></div>
+      <div class="card">Balance: ₹<span id="balance">0</span></div>
+    </div>
+    <form id="transaction-form" class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-8">
+      <input id="desc" type="text" placeholder="Description" class="col-span-2"/>
+      <input id="amount" type="number" placeholder="Amount"/>
+      <select id="category"><option>Food</option><option>Transport</option><option>Shopping</option><option>Other</option></select>
+      <select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
+      <button type="submit" class="bg-blue-600 text-white py-2 rounded col-span-full sm:col-span-1">Add</button>
+    </form>
+    <ul id="transaction-list"></ul>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <div><h2>Expenses by Category</h2><canvas id="expenseChart" height="120"></canvas></div>
+      <div><h2>Spending Trends</h2><canvas id="trendChart" height="120"></canvas></div>
+    </div>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
 </html>
