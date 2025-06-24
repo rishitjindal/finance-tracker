@@ -1,36 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FinVista – Login</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { 
-        extend: {
-          colors: { sidebar: '#f3f4f6', card: '#ffffff', primary: '#2563eb' },
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          boxShadow: { soft: '0 1px 3px rgba(0,0,0,0.1)' },
-          borderRadius: { lg: '0.75rem' }
-        }
-      }
-    };
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="auth.js" defer></script>
-</head>
-<body class="font-sans flex items-center justify-center h-screen bg-gray-100">
-  <div class="w-full max-w-md p-8 bg-card rounded-lg shadow-soft">
-    <h1 class="text-2xl font-semibold mb-6 text-gray-800">Sign in to FinVista</h1>
-    <form id="login-form" class="space-y-4">
-      <input id="login-username" type="text" placeholder="Username" class="w-full p-3 border border-gray-300 rounded-lg" required />
-      <input id="login-password" type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg" required />
-      <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-600">Login</button>
-    </form>
-    <p class="text-center text-sm text-gray-500 mt-4">
-      New? <a href="signup.html" class="text-primary hover:underline">Create account</a>
-    </p>
-  </div>
-</body>
+<html lang="en" class="bg-gray-950 text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker — Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-sm bg-gray-900 rounded-xl shadow-xl p-6 space-y-6">
+      <div>
+        <h1 class="text-3xl font-bold text-white mb-1">Sign In</h1>
+        <p class="text-gray-400 text-sm">Welcome back to your finance hub</p>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <input
+          type="text"
+          id="login-username"
+          placeholder="Username"
+          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        />
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Password"
+          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        />
+        <button
+          type="submit"
+          class="w-full bg-purple-600 hover:bg-purple-700 transition py-3 rounded-lg font-semibold"
+        >
+          Login
+        </button>
+      </form>
+      <p class="text-center text-sm text-gray-400">
+        Don’t have an account?
+        <a href="signup.html" class="text-purple-400 hover:underline">Sign up</a>
+      </p>
+    </div>
+
+    <script src="auth.js"></script>
+  </body>
 </html>
