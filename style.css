@@ -210,8 +210,9 @@ canvas {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  position: relative;
 }
 
 .icon-wrapper {
@@ -223,6 +224,7 @@ canvas {
   justify-content: center;
   background-color: #f3f4f6;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .icon-wrapper.green {
@@ -247,6 +249,7 @@ canvas {
 .tx-amount {
   font-weight: bold;
   white-space: nowrap;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .text-green {
@@ -257,3 +260,7 @@ canvas {
   color: #dc2626;
 }
 
+.delete-icon {
+  width: 20px;
+  height: 20px;
+}
