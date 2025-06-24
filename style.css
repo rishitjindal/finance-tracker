@@ -1,26 +1,106 @@
+/* === style.css === */
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
   margin: 0;
-  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  color: #1f2937;
 }
-.auth-container, main {
-  max-width: 400px;
-  margin: 50px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-input, select, button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-}
+
 .card {
-  background: #dfe6e9;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 6px;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+.btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #1e40af;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: #f3f4f6;
+}
+
+.sidebar {
+  background-color: #f9fafb;
+  width: 80px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.sidebar a {
+  color: #6b7280;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.sidebar a:hover,
+.sidebar .active {
+  color: #2563eb;
+  background-color: #e0f2fe;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.header {
+  height: 64px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-success {
+  color: #10b981;
+}
+
+.text-danger {
+  color: #ef4444;
 }
