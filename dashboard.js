@@ -1,81 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const user = localStorage.getItem("loggedInUser");
-  if (!user) return (window.location.href = "index.html");
+  const u = localStorage.getItem("loggedInUser");
+  if (!u) return window.location.href = "index.html";
+  document.getElementById("user-display").textContent = u;
 
-  // Get DOM elements
-  const transactionList = document.getElementById("transaction-list");
-  const entryForm = document.getElementById("entry-form");
-  const totalBalance = document.querySelector(".chart-section h3");
+  const dateEl = document.getElementById("current-date");
+  dateEl.textContent = new Date().toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric', year:'numeric' });
 
-  // Local data
-  let transactions = JSON.parse(localStorage.getItem(`${user}_transactions`) || "[]");
+  const incEl = document.getElementById("income");
+  const expEl = document.getElementById("expense");
+  const balEl = document.getElementById("balance");
+  const listEl = document.getElementById("transaction-list");
+  const form = document.getElementById("transaction-form");
+  const expCtx = document.getElementById("expenseChart").getContext("2d");
+  const trendCtx = document.getElementById("trendChart").getContext("2d");
 
-  // Format currency
-  const formatMoney = amount =>
-    new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-    }).format(amount);
-
-  // Render table
-  function renderTransactions() {
-    transactionList.innerHTML = "";
-    let total = 0;
-
-    transactions.forEach((t, index) => {
-      const row = document.createElement("tr");
-      const type = t.type === "income" ? "Income" : "Expense";
-      const sign = t.type === "income" ? "+" : "-";
-      if (t.type === "income") {
-        total += t.amount;
-      } else {
-        total -= t.amount;
-      }
-
-      row.innerHTML = `
-        <td>${type}</td>
-        <td>${sign} ${formatMoney(t.amount)}</td>
-        <td>${t.date || "N/A"}</td>
-      `;
-
-      row.addEventListener("dblclick", () => {
-        if (confirm("Delete this transaction?")) {
-          transactions.splice(index, 1);
-          localStorage.setItem(`${user}_transactions`, JSON.stringify(transactions));
-          renderTransactions();
-        }
-      });
-
-      transactionList.appendChild(row);
-    });
-
-    totalBalance.textContent = `Total Balance: ${formatMoney(total)}`;
-  }
-
-  // Handle form
-  entryForm.addEventListener("submit", e => {
-    e.preventDefault();
-    const inputs = entryForm.querySelectorAll("input");
-    const [typeInput, amountInput, dateInput] = inputs;
-    const amount = parseFloat(amountInput.value);
-
-    if (!typeInput.value || isNaN(amount)) {
-      alert("Please fill all fields correctly.");
-      return;
+  let tArr = JSON.parse(localStorage.getItem(`${u}_transactions`) || "[]");
+  let pieChart;
+  let trendChart = new Chart(trendCtx, {
+    type: 'line',
+    data: {
+      labels: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+      datasets: [{ label:"Expenses", data:tArr.filter(t=>t.type==="expense").map(t=>t.amount), borderColor:"#ef4444", fill:false }]
     }
-
-    transactions.push({
-      type: typeInput.value.toLowerCase(),
-      amount,
-      date: dateInput.value,
-    });
-
-    localStorage.setItem(`${user}_transactions`, JSON.stringify(transactions));
-    entryForm.reset();
-    renderTransactions();
   });
 
-  renderTransactions();
+  function drawPie() {
+    const cat = {};
+    tArr.filter(t => t.type === "expense").forEach(t => cat[t.category] = (cat[t.category]||0) + t.amount);
+    pieChart?.destroy();
+    pieChart = new Chart(expCtx, { type: 'pie', data: { labels:Object.keys(cat), datasets:[{ data:Object.values(cat), backgroundColor:["#ef4444","#3b82f6","#10b981"] }] } });
+  }
+
+  function render() {
+    let inc=0, exp=0;
+    listEl.innerHTML = "";
+    tArr.forEach((t,i)=> {
+      if (t.type==="income") inc+=t.amount; else exp+=t.amount;
+      const li = document.createElement("li");
+      li.textContent = `${t.desc}: ₹${t.amount} (${t.category})`;
+      li.addEventListener("dblclick",()=>{ tArr.splice(i,1); localStorage.setItem(`${u}_transactions`,JSON.stringify(tArr)); render(); });
+      listEl.appendChild(li);
+    });
+    incEl.textContent = inc;
+    expEl.textContent = exp;
+    balEl.textContent = inc-exp;
+    drawPie();
+  }
+
+  form.addEventListener("submit", e=>{
+    e.preventDefault();
+    const t = { desc:form.desc.value, amount:+form.amount.value, category:form.category.value, type:form.type.value };
+    tArr.push(t);
+    localStorage.setItem(`${u}_transactions`, JSON.stringify(tArr));
+    form.reset();
+    render();
+  });
+  render();
 });
 
 function logout() {
