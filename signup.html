@@ -1,33 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up | FinVista</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: {
-      /* same config as index.html */
-      colors: { background: '#f9fafb', surface: '#ffffff', primary: '#6366f1', accent: '#fbbf24' },
-      fontFamily: { sans: ['Inter', 'sans-serif'] },
-      boxShadow: { soft: '0 2px 10px rgba(0,0,0,0.05)' },
-      borderRadius: { xl: '1rem' }
-    } } };
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="auth.js" defer></script>
-</head>
-<body class="font-sans bg-background flex items-center justify-center h-screen">
-  <div class="bg-surface p-8 rounded-xl shadow-soft w-full max-w-sm">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Create Your Account</h1>
-    <form id="signup-form" class="space-y-4">
-      <input id="signup-username" type="text" placeholder="Username" class="w-full p-3 border border-gray-300 rounded-lg" required />
-      <input id="signup-password" type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg" required />
-      <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-indigo-700">Sign Up</button>
-    </form>
-    <p class="text-center text-sm text-textSecondary mt-4">
-      Already have an account? <a href="index.html" class="text-primary hover:underline">Login</a>
-    </p>
-  </div>
-</body>
+<html lang="en" class="bg-gray-950 text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker — Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-sm bg-gray-900 rounded-xl shadow-xl p-6 space-y-6">
+      <div>
+        <h1 class="text-3xl font-bold text-white mb-1">Create Account</h1>
+        <p class="text-gray-400 text-sm">Track your finances effortlessly</p>
+      </div>
+      <form id="signup-form" class="space-y-4">
+        <input
+          type="text"
+          id="signup-username"
+          placeholder="Username"
+          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        />
+        <input
+          type="password"
+          id="signup-password"
+          placeholder="Password"
+          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+        />
+        <button
+          type="submit"
+          class="w-full bg-purple-600 hover:bg-purple-700 transition py-3 rounded-lg font-semibold"
+        >
+          Sign Up
+        </button>
+      </form>
+      <p class="text-center text-sm text-gray-400">
+        Already have an account?
+        <a href="index.html" class="text-purple-400 hover:underline">Login</a>
+      </p>
+    </div>
+
+    <script src="auth.js"></script>
+  </body>
 </html>
