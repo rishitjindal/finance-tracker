@@ -13,39 +13,40 @@
     <!-- Sidebar -->
     <aside class="w-20 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6">
       <a href="#" class="text-xl font-bold">₹</a>
-      <a href="dashboard.html" class="nav-icon active-nav">🏠</a>
-      <a href="goals.html" class="nav-icon">🎯</a>
-      <a href="emi.html" class="nav-icon">📆</a>
-      <a href="investments.html" class="nav-icon">📊</a>
+      <a href="dashboard.html" class="nav-icon active-nav">🏠HOME</a>
+      <a href="goals.html" class="nav-icon">🎯GOALS</a>
+      <a href="emi.html" class="nav-icon">📆EMI</a>
+      <a href="investments.html" class="nav-icon">📊INVESTMENTS</a>
       <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 p-6 bg-gray-950 overflow-y-auto">
       <h1 class="text-2xl font-bold mb-6">Welcome, <span id="user-display"></span> 👋</h1>
+      <p class="text-sm text-gray-400 mb-4" id="current-date"></p>
 
       <!-- Summary Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div class="card bg-gray-800 text-green-400">Income: ₹<span id="income">0</span></div>
-        <div class="card bg-gray-800 text-red-400">Expense: ₹<span id="expense">0</span></div>
-        <div class="card bg-gray-800 text-white">Balance: ₹<span id="balance">0</span></div>
+        <div class="card bg-gray-800 text-green-400 p-4 rounded">Income: ₹<span id="income">0</span></div>
+        <div class="card bg-gray-800 text-red-400 p-4 rounded">Expense: ₹<span id="expense">0</span></div>
+        <div class="card bg-gray-800 text-white p-4 rounded">Balance: ₹<span id="balance">0</span></div>
       </div>
 
       <!-- Transaction Form -->
       <form id="transaction-form" class="grid sm:grid-cols-5 gap-4 mb-8">
-        <input id="desc" type="text" placeholder="Description" class="input col-span-2" />
-        <input id="amount" type="number" placeholder="Amount" class="input" />
-        <select id="category" class="input">
+        <input id="desc" type="text" placeholder="Description" class="input col-span-2 p-2 bg-gray-800 text-white rounded" />
+        <input id="amount" type="number" placeholder="Amount" class="input p-2 bg-gray-800 text-white rounded" />
+        <select id="category" class="input p-2 bg-gray-800 text-white rounded">
           <option>Food</option>
           <option>Transport</option>
           <option>Shopping</option>
           <option>Other</option>
         </select>
-        <select id="type" class="input">
+        <select id="type" class="input p-2 bg-gray-800 text-white rounded">
           <option value="expense">Expense</option>
           <option value="income">Income</option>
         </select>
-        <button type="submit" class="btn bg-purple-600 col-span-full sm:col-span-1">Add</button>
+        <button type="submit" class="btn bg-purple-600 hover:bg-purple-700 transition py-2 rounded col-span-full sm:col-span-1">Add</button>
       </form>
 
       <!-- Transaction List -->
@@ -54,10 +55,16 @@
         <ul id="transaction-list" class="space-y-3"></ul>
       </div>
 
-      <!-- Expense Chart -->
-      <div class="bg-gray-900 rounded-xl p-6">
-        <h2 class="text-xl font-semibold mb-4">Expenses by Category</h2>
-        <canvas id="expenseChart" height="120"></canvas>
+      <!-- Charts -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-900 rounded-xl p-6">
+          <h2 class="text-xl font-semibold mb-4">Expenses by Category</h2>
+          <canvas id="expenseChart" height="120"></canvas>
+        </div>
+        <div class="bg-gray-900 rounded-xl p-6">
+          <h2 class="text-xl font-semibold mb-4">Spending Trends</h2>
+          <canvas id="trendChart" height="120"></canvas>
+        </div>
       </div>
     </main>
 
