@@ -1,84 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard | FinVista</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: {
-      colors: { sidebar: '#f3f4f6', header: '#ffffff', card: '#ffffff', active: '#e0f2fe', primary: '#2563eb' },
-      fontFamily: { sans: ['Inter', 'sans-serif'] },
-      boxShadow: { soft: '0 1px 3px rgba(0,0,0,0.1)' },
-      borderRadius: { lg: '0.75rem' }
-    } } };
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dashboard.js" defer></script>
-</head>
-<body class="font-sans flex min-h-screen bg-gray-100">
+<html lang="en" class="bg-gray-950 text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Finance Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="flex h-screen overflow-hidden">
 
-  <!-- Sidebar -->
-  <nav class="w-20 bg-sidebar py-6 flex flex-col items-center space-y-6">
-    <a href="dashboard.html" class="text-primary"><span class="text-2xl">🏠</span></a>
-    <a href="goals.html"><span class="text-xl">🎯</span></a>
-    <a href="tools.html"><span class="text-xl">🧮</span></a>
-    <a href="investments.html"><span class="text-xl">📈</span></a>
-  </nav>
+    <!-- Sidebar -->
+    <aside class="w-20 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6">
+      <a href="#" class="text-xl font-bold">₹</a>
+      <a href="dashboard.html" class="nav-icon active-nav">🏠</a>
+      <a href="goals.html" class="nav-icon">🎯</a>
+      <a href="emi.html" class="nav-icon">📆</a>
+      <a href="investments.html" class="nav-icon">📊</a>
+      <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
+    </aside>
 
-  <!-- Content Area -->
-  <div class="flex-1 flex flex-col">
-    <!-- Header -->
-    <header class="h-16 bg-header shadow-soft px-6 flex items-center justify-between">
-      <h1 class="text-xl font-semibold text-gray-800">FinVista</h1>
-      <div class="flex items-center gap-4">
-        <span class="text-gray-600">Hi, <strong id="user-display"></strong></span>
-        <button onclick="logout()" class="text-red-500 hover:text-red-700">Logout</button>
-      </div>
-    </header>
+    <!-- Main Content -->
+    <main class="flex-1 p-6 bg-gray-950 overflow-y-auto">
+      <h1 class="text-2xl font-bold mb-6">Welcome, <span id="user-display"></span> 👋</h1>
 
-    <!-- Main Dashboard -->
-    <main class="flex-1 p-6 space-y-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-card p-6 rounded-lg shadow-soft">
-          <p class="text-sm text-gray-500">Income</p>
-          <p class="mt-2 text-2xl font-medium text-green-600">₹<span id="income">0</span></p>
-        </div>
-        <div class="bg-card p-6 rounded-lg shadow-soft">
-          <p class="text-sm text-gray-500">Expense</p>
-          <p class="mt-2 text-2xl font-medium text-red-600">₹<span id="expense">0</span></p>
-        </div>
-        <div class="bg-card p-6 rounded-lg shadow-soft">
-          <p class="text-sm text-gray-500">Balance</p>
-          <p class="mt-2 text-2xl font-medium text-blue-600">₹<span id="balance">0</span></p>
-        </div>
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <div class="card bg-gray-800 text-green-400">Income: ₹<span id="income">0</span></div>
+        <div class="card bg-gray-800 text-red-400">Expense: ₹<span id="expense">0</span></div>
+        <div class="card bg-gray-800 text-white">Balance: ₹<span id="balance">0</span></div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="space-y-6">
-          <div class="bg-card p-6 rounded-lg shadow-soft">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Add Transaction</h2>
-            <form id="transaction-form" class="space-y-4">
-              <input type="text" id="desc" placeholder="Description" class="w-full p-3 border border-gray-300 rounded-lg" required />
-              <input type="number" id="amount" placeholder="Amount" class="w-full p-3 border border-gray-300 rounded-lg" required />
-              <div class="grid grid-cols-2 gap-4">
-                <select id="category" class="p-3 border border-gray-300 rounded-lg"><option>Food</option><option>Rent</option><option>Travel</option><option>Other</option></select>
-                <select id="type" class="p-3 border border-gray-300 rounded-lg"><option value="income">Income</option><option value="expense">Expense</option></select>
-              </div>
-              <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-600 transition">Add</button>
-            </form>
-          </div>
-        </div>
+      <!-- Transaction Form -->
+      <form id="transaction-form" class="grid sm:grid-cols-5 gap-4 mb-8">
+        <input id="desc" type="text" placeholder="Description" class="input col-span-2" />
+        <input id="amount" type="number" placeholder="Amount" class="input" />
+        <select id="category" class="input">
+          <option>Food</option>
+          <option>Transport</option>
+          <option>Shopping</option>
+          <option>Other</option>
+        </select>
+        <select id="type" class="input">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+        <button type="submit" class="btn bg-purple-600 col-span-full sm:col-span-1">Add</button>
+      </form>
 
-        <div class="bg-card p-6 rounded-lg shadow-soft">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">Spending Chart</h2>
-          <canvas id="expenseChart" height="240"></canvas>
-          <h2 class="text-lg font-semibold text-gray-800 mt-8 mb-4">History</h2>
-          <ul id="transaction-list" class="space-y-2 max-h-96 overflow-y-auto"></ul>
-        </div>
+      <!-- Transaction List -->
+      <div class="mb-10">
+        <h2 class="text-xl font-semibold mb-4">Transactions</h2>
+        <ul id="transaction-list" class="space-y-3"></ul>
+      </div>
+
+      <!-- Expense Chart -->
+      <div class="bg-gray-900 rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-4">Expenses by Category</h2>
+        <canvas id="expenseChart" height="120"></canvas>
       </div>
     </main>
-  </div>
-</body>
+
+    <script src="dashboard.js"></script>
+  </body>
 </html>
