@@ -3,13 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!username) return window.location.href = "index.html";
 
   document.getElementById("user-display").textContent = username;
-
   const incomeEl = document.getElementById("income");
   const expenseEl = document.getElementById("expense");
   const balanceEl = document.getElementById("balance");
   const listEl = document.getElementById("transaction-list");
   const form = document.getElementById("transaction-form");
-  const ctx = document.getElementById("expenseChart")?.getContext("2d");
+  const ctx = document.getElementById("expenseChart").getContext("2d");
 
   let transactions = JSON.parse(localStorage.getItem(`${username}_transactions`)) || [];
   let pieChart;
@@ -20,11 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     transactions.forEach((t, index) => {
       const li = document.createElement("li");
-      li.className = "bg-gray-50 p-3 rounded-lg flex justify-between items-center shadow-sm";
+      li.className = "bg-gray-800 p-3 rounded flex justify-between items-center";
       li.innerHTML = `
         <div>
-          <strong>${t.desc}</strong> <span class="text-sm text-gray-500">(${t.category})</span><br>
-          <span class="text-${t.type === 'income' ? 'green' : 'red'}-600 font-medium">₹${t.amount}</span>
+          <strong>${t.desc}</strong> <span class="text-sm text-gray-400">(${t.category})</span><br>
+          <span class="text-${t.type === 'income' ? 'green' : 'red'}-500 font-semibold">₹${t.amount}</span>
         </div>
         <button onclick="deleteTransaction(${index})" class="text-red-500 hover:text-red-700">🗑️</button>
       `;
@@ -34,15 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
       else expense += t.amount;
     });
 
-    incomeEl.textContent = income.toLocaleString();
-    expenseEl.textContent = expense.toLocaleString();
-    balanceEl.textContent = (income - expense).toLocaleString();
+    incomeEl.textContent = income;
+    expenseEl.textContent = expense;
+    balanceEl.textContent = income - expense;
 
     updateChart();
   }
 
   function updateChart() {
-    if (!ctx) return;
     const categoryMap = {};
     transactions.forEach(t => {
       if (t.type === "expense") {
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       labels: Object.keys(categoryMap),
       datasets: [{
         data: Object.values(categoryMap),
-        backgroundColor: ["#f87171", "#fbbf24", "#60a5fa", "#34d399", "#a78bfa"]
+        backgroundColor: ["#ef4444", "#f59e0b", "#3b82f6", "#10b981", "#6366f1"]
       }]
     };
 
@@ -66,17 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  form?.addEventListener("submit", function (e) {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
     const desc = document.getElementById("desc").value.trim();
     const amount = +document.getElementById("amount").value;
     const category = document.getElementById("category").value;
     const type = document.getElementById("type").value;
 
-    if (!desc || !amount || amount <= 0) {
-      alert("Please fill out valid description and amount.");
-      return;
-    }
+    if (!desc || !amount || amount <= 0) return alert("Enter valid details");
 
     transactions.push({ desc, amount, category, type });
     localStorage.setItem(`${username}_transactions`, JSON.stringify(transactions));
@@ -85,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   window.deleteTransaction = function (index) {
-    if (confirm("Delete this transaction?")) {
+    if (confirm("Are you sure?")) {
       transactions.splice(index, 1);
       localStorage.setItem(`${username}_transactions`, JSON.stringify(transactions));
       updateUI();
