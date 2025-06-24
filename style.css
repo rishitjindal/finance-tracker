@@ -12,6 +12,10 @@ body {
   color: #1f2937;
   line-height: 1.6;
 }
+body.layout {
+  display: flex;
+  min-height: 100vh;
+}
 
 /* Sidebar */
 aside {
