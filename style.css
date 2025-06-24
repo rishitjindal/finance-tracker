@@ -1,106 +1,35 @@
-/* === style.css === */
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f3f4f6;
-  color: #1f2937;
-}
-
-.card {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
-}
-
-.btn {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.75rem 1.25rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #1e40af;
-}
-
-.btn-outline {
-  background-color: transparent;
-  border: 1px solid #d1d5db;
-  color: #374151;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.btn-outline:hover {
-  background-color: #f3f4f6;
-}
-
-.sidebar {
-  background-color: #f9fafb;
-  width: 80px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-.sidebar a {
-  color: #6b7280;
-  margin: 1rem 0;
+.nav-icon {
+  display: block;
   font-size: 1.5rem;
-  text-decoration: none;
-}
-
-.sidebar a:hover,
-.sidebar .active {
-  color: #2563eb;
-  background-color: #e0f2fe;
+  color: #aaa;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  transition: 0.2s;
 }
-
-.header {
-  height: 64px;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+.nav-icon:hover {
+  background-color: #333;
+  color: #fff;
 }
-
-.transaction-item {
-  display: flex;
-  justify-content: space-between;
+.active-nav {
+  background-color: #4c1d95;
+  color: white !important;
+}
+.card {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.input {
   padding: 0.75rem;
-  background-color: #f9fafb;
   border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  color: white;
 }
-
-.text-success {
-  color: #10b981;
-}
-
-.text-danger {
-  color: #ef4444;
+.btn {
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  text-align: center;
 }
