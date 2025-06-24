@@ -61,7 +61,11 @@
       <select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
       <button type="submit" class="bg-blue-600 text-white py-2 rounded col-span-full sm:col-span-1">Add</button>
     </form>
-    <ul id="transaction-list"></ul>
+    <section>
+  <h2 class="text-xl font-semibold mb-4">Recent Transactions</h2>
+  <ul id="transaction-list" class="transaction-list"></ul>
+</section>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
       <div><h2>Expenses by Category</h2><canvas id="expenseChart" height="120"></canvas></div>
       <div><h2>Spending Trends</h2><canvas id="trendChart" height="120"></canvas></div>
