@@ -15,6 +15,12 @@
   </svg>
   Dashboard
 </a>
+<a href="transactions.html">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a4 4 0 00-8 0v2m12 4h-3m-6 0H5m6 4v2m0-2V9" />
+  </svg>
+  Transactions
+</a>
 
 <a href="goals.html">
   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,13 +89,14 @@
   </div>
 </div>
 
-    <form id="transaction-form" class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-8">
+   <!-- <form id="transaction-form" class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-8">
       <input id="desc" type="text" placeholder="Description" class="col-span-2"/>
       <input id="amount" type="number" placeholder="Amount"/>
       <select id="category"><option>Food</option><option>Transport</option><option>Shopping</option><option>Other</option></select>
       <select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
       <button type="submit" class="bg-blue-600 text-white py-2 rounded col-span-full sm:col-span-1">Add</button>
-    </form>
+    </form>-->
+    
     <section>
   <h2 class="text-xl font-semibold mb-4">Recent Transactions</h2>
   <ul id="transaction-list" class="transaction-list"></ul>
