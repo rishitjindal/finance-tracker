@@ -11,14 +11,31 @@
   <body class="flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
-    <aside class="w-20 bg-gray-900 text-white flex flex-col items-center space-y-6 py-6">
-      <a href="#" class="text-xl font-bold">₹</a>
-      <a href="dashboard.html" class="nav-icon active-nav">🏠HOME</a>
-      <a href="goals.html" class="nav-icon">🎯GOALS</a>
-      <a href="emi.html" class="nav-icon">📆EMI</a>
-      <a href="investments.html" class="nav-icon">📊INVESTMENTS</a>
-      <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
-    </aside>
+   <!-- Sidebar -->
+<aside class="w-40 bg-gray-900 text-white flex flex-col items-center py-6 space-y-4">
+  <a href="#" class="text-3xl font-bold mb-6">₹</a>
+  <a href="dashboard.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
+    <span class="text-lg">🏠</span>
+    <span class="text-sm font-medium">Home</span>
+  </a>
+  <a href="goals.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
+    <span class="text-lg">🎯</span>
+    <span class="text-sm font-medium">Goals</span>
+  </a>
+  <a href="emi.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
+    <span class="text-lg">📆</span>
+    <span class="text-sm font-medium">EMI</span>
+  </a>
+  <a href="investments.html" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left">
+    <span class="text-lg">📊</span>
+    <span class="text-sm font-medium">Investments</span>
+  </a>
+  <button onclick="logout()" class="flex items-center space-x-2 hover:bg-gray-800 px-4 py-2 rounded w-full text-left mt-auto">
+    <span class="text-lg">🚪</span>
+    <span class="text-sm font-medium">Logout</span>
+  </button>
+</aside>
+
 
     <!-- Main Content -->
     <main class="flex-1 p-6 bg-gray-950 overflow-y-auto">
