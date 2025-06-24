@@ -1,82 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-950 text-white">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Finance Tracker - Goals</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="flex h-screen overflow-hidden">
-    <!-- Sidebar -->
-    <aside class="w-20 bg-gray-900 flex flex-col items-center py-6 space-y-6">
-      <a href="dashboard.html" class="nav-icon">🏠</a>
-      <a href="goals.html" class="nav-icon active-nav">🎯</a>
-      <a href="emi.html" class="nav-icon">📆</a>
-      <a href="investments.html" class="nav-icon">📊</a>
-      <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
-    </aside>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goals - FinanceHub</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="flex">
+  <aside>
+    <a href="#" class="text-xl font-bold mb-6">₹ FinanceHub</a>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="goals.html" class="active-nav">🎯 Goals</a>
+    <a href="emi.html">📆 EMI</a>
+    <a href="investments.html">📊 Investments</a>
+    <button onclick="logout()">🚪 Logout</button>
+  </aside>
+  <main>
+    <h1>Your Goals</h1>
+    <p id="current-date"></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <!-- Example Goal Card -->
+      <div class="card">
+        <h3>Buy a Car</h3>
+        <p>Target: ₹500,000</p>
+        <p>Saved: ₹150,000</p>
+      </div>
+      <!-- Add more goals as needed -->
+    </div>
+    <form id="goal-form" class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <input id="goal-desc" type="text" placeholder="Goal Description"/>
+      <input id="goal-target" type="number" placeholder="Target Amount"/>
+      <button type="submit" class="bg-blue-600 text-white py-2 rounded">Add Goal</button>
+    </form>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const u = localStorage.getItem("loggedInUser");
+      if (!u) return window.location.href = "index.html";
+      document.getElementById("current-date").textContent = new Date().toLocaleDateString();
 
-    <main class="flex-1 p-6 overflow-y-auto">
-      <h1 class="text-2xl font-bold mb-6">Your Financial Goals 🎯</h1>
-
-      <form id="goal-form" class="grid sm:grid-cols-3 gap-4 mb-8">
-        <input type="text" id="goal-name" class="input" placeholder="Goal name" />
-        <input type="number" id="goal-amount" class="input" placeholder="Target amount ₹" />
-        <button type="submit" class="btn bg-purple-600 col-span-full sm:col-span-1">Add Goal</button>
-      </form>
-
-      <ul id="goal-list" class="space-y-4"></ul>
-    </main>
-
-    <script>
-      const username = localStorage.getItem("loggedInUser");
-      if (!username) location.href = "index.html";
-
+      let goals = JSON.parse(localStorage.getItem(`${u}_goals`) || "[]");
+      const container = document.querySelector("main .grid");
       const form = document.getElementById("goal-form");
-      const list = document.getElementById("goal-list");
-      let goals = JSON.parse(localStorage.getItem(`${username}_goals`) || "[]");
 
-      function updateGoals() {
-        list.innerHTML = "";
-        goals.forEach((goal, index) => {
-          const li = document.createElement("li");
-          li.className = "bg-gray-800 p-4 rounded flex justify-between";
-          li.innerHTML = `
-            <div>
-              <strong>${goal.name}</strong><br />
-              <span class="text-sm text-gray-400">₹${goal.amount}</span>
-            </div>
-            <button onclick="deleteGoal(${index})" class="text-red-500">🗑️</button>
-          `;
-          list.appendChild(li);
+      function render() {
+        container.innerHTML = "";
+        goals.forEach((g,i) => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `<h3>${g.desc}</h3><p>Target: ₹${g.target}</p><p>Saved: ₹${g.saved || 0}</p>`;
+          container.appendChild(div);
         });
       }
 
-      function deleteGoal(index) {
-        goals.splice(index, 1);
-        localStorage.setItem(`${username}_goals`, JSON.stringify(goals));
-        updateGoals();
-      }
-
-      form.addEventListener("submit", (e) => {
+      form.addEventListener("submit", e => {
         e.preventDefault();
-        const name = document.getElementById("goal-name").value.trim();
-        const amount = +document.getElementById("goal-amount").value;
-
-        if (!name || !amount) return alert("Fill all fields");
-
-        goals.push({ name, amount });
-        localStorage.setItem(`${username}_goals`, JSON.stringify(goals));
-        form.reset();
-        updateGoals();
+        const desc = form["goal-desc"].value, target = +form["goal-target"].value;
+        if (!desc || target <= 0) return alert("Enter valid data");
+        goals.push({ desc, target, saved: 0 });
+        localStorage.setItem(`${u}_goals`, JSON.stringify(goals));
+        form.reset(); render();
       });
 
-      updateGoals();
-
-      function logout() {
-        localStorage.removeItem("loggedInUser");
-        location.href = "index.html";
-      }
-    </script>
-  </body>
+      render();
+    });
+  </script>
+  <script>
+    function logout(){ localStorage.removeItem("loggedInUser"); window.location="index.html"; }
+  </script>
+</body>
 </html>
