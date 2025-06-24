@@ -2,10 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const signupForm = document.getElementById("signup-form");
 
-  function showAlert(message, type = 'error') {
-    alert(type === 'success' ? '✅ ' + message : '❌ ' + message);
-  }
-
   if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -13,19 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("signup-password").value;
 
       if (username.length < 3 || password.length < 4) {
-        showAlert("Username or password too short");
+        alert("Username or password too short");
         return;
       }
 
       let users = JSON.parse(localStorage.getItem("users")) || [];
       const exists = users.some(u => u.username === username);
-      if (exists) return showAlert("User already exists");
+      if (exists) return alert("User already exists");
 
       users.push({ username, password });
       localStorage.setItem("users", JSON.stringify(users));
       localStorage.setItem("loggedInUser", username);
-      showAlert("Account created! Redirecting...", 'success');
-      setTimeout(() => window.location.href = "dashboard.html", 1000);
+      window.location.href = "dashboard.html";
     });
   }
 
@@ -40,10 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (user) {
         localStorage.setItem("loggedInUser", username);
-        showAlert("Login successful! Redirecting...", 'success');
-        setTimeout(() => window.location.href = "dashboard.html", 1000);
+        window.location.href = "dashboard.html";
       } else {
-        showAlert("Invalid username or password");
+        alert("Invalid username or password");
       }
     });
   }
