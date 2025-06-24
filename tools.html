@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tools | FinVista</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { /* same config */ colors: { background: '#f9fafb', surface: '#ffffff', primary: '#6366f1' }, fontFamily: { sans: ['Inter','sans-serif'] }, boxShadow: { soft: '0 2px 10px rgba(0,0,0,0.05)' }, borderRadius: { xl: '1rem' } } } };
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="tools.js" defer></script>
-</head>
-<body class="font-sans bg-background min-h-screen">
-  <main class="max-w-3xl mx-auto p-6 space-y-6">
-    <h1 class="text-2xl font-semibold text-gray-800">🧮 Financial Tools</h1>
-    <section class="bg-surface p-6 rounded-xl shadow-soft space-y-4">
-      <h2 class="text-lg font-medium">EMI Calculator</h2>
-      <form id="emi-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="loan-amount" placeholder="Loan Amount" class="w-full p-3 border border-cardBorder rounded-lg" />
-        <input type="number" id="interest-rate" placeholder="Annual Interest (%)" class="w-full p-3 border border-cardBorder rounded-lg" />
-        <input type="number" id="tenure" placeholder="Tenure (months)" class="w-full p-3 border border-cardBorder rounded-lg" />
-        <button type="submit" class="bg-primary text-white py-3 rounded-lg md:col-span-3 hover:bg-indigo-700">Calculate EMI</button>
-      </form>
-      <p id="emi-result" class="text-primary font-medium"></p>
-    </section>
-  </main>
-</body>
+<html lang="en" class="bg-gray-950 text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Finance Tracker - EMI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-20 bg-gray-900 flex flex-col items-center py-6 space-y-6">
+      <a href="dashboard.html" class="nav-icon">🏠</a>
+      <a href="goals.html" class="nav-icon">🎯</a>
+      <a href="emi.html" class="nav-icon active-nav">📆</a>
+      <a href="investments.html" class="nav-icon">📊</a>
+      <button onclick="logout()" class="mt-auto nav-icon">🚪</button>
+    </aside>
+
+    <main class="flex-1 p-6 overflow-y-auto">
+      <h1 class="text-2xl font-bold mb-6">EMI Calculator 📆</h1>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        <input type="number" id="principal" class="input" placeholder="Loan Amount (₹)" />
+        <input type="number" id="rate" class="input" placeholder="Annual Interest Rate (%)" />
+        <input type="number" id="months" class="input" placeholder="Loan Tenure (months)" />
+      </div>
+
+      <button onclick="calculateEMI()" class="btn bg-purple-600 mt-4">Calculate EMI</button>
+
+      <div class="mt-6 bg-gray-800 p-4 rounded text-lg">
+        Your Monthly EMI: ₹<span id="emi-output">0</span>
+      </div>
+    </main>
+
+    <script>
+      if (!localStorage.getItem("loggedInUser")) location.href = "index.html";
+
+      function calculateEMI() {
+        const P = +document.getElementById("principal").value;
+        const R = +document.getElementById("rate").value / 1200;
+        const N = +document.getElementById("months").value;
+
+        if (!P || !R || !N) return alert("Please fill all fields");
+
+        const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+        document.getElementById("emi-output").textContent = emi.toFixed(2);
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedInUser");
+        location.href = "index.html";
+      }
+    </script>
+  </body>
 </html>
