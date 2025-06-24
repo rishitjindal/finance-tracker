@@ -3,29 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | FinVista</title>
+  <title>FinVista – Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme: { extend: {
-      colors: { background: '#f9fafb', surface: '#ffffff', primary: '#6366f1', accent: '#fbbf24' },
-      fontFamily: { sans: ['Inter', 'sans-serif'] },
-      boxShadow: { soft: '0 2px 10px rgba(0,0,0,0.05)' },
-      borderRadius: { xl: '1rem' }
-    } } };
+    tailwind.config = {
+      theme: { 
+        extend: {
+          colors: { sidebar: '#f3f4f6', card: '#ffffff', primary: '#2563eb' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          boxShadow: { soft: '0 1px 3px rgba(0,0,0,0.1)' },
+          borderRadius: { lg: '0.75rem' }
+        }
+      }
+    };
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="auth.js" defer></script>
 </head>
-<body class="font-sans bg-background flex items-center justify-center h-screen">
-  <div class="bg-surface p-8 rounded-xl shadow-soft w-full max-w-sm">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Login to FinVista</h1>
+<body class="font-sans flex items-center justify-center h-screen bg-gray-100">
+  <div class="w-full max-w-md p-8 bg-card rounded-lg shadow-soft">
+    <h1 class="text-2xl font-semibold mb-6 text-gray-800">Sign in to FinVista</h1>
     <form id="login-form" class="space-y-4">
       <input id="login-username" type="text" placeholder="Username" class="w-full p-3 border border-gray-300 rounded-lg" required />
       <input id="login-password" type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg" required />
-      <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-indigo-700">Login</button>
+      <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-600">Login</button>
     </form>
-    <p class="text-center text-sm text-textSecondary mt-4">
-      Don't have an account? <a href="signup.html" class="text-primary hover:underline">Sign up</a>
+    <p class="text-center text-sm text-gray-500 mt-4">
+      New? <a href="signup.html" class="text-primary hover:underline">Create account</a>
     </p>
   </div>
 </body>
