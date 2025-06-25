@@ -49,7 +49,50 @@ document.addEventListener("DOMContentLoaded", () => {
       }]
     }
   });
+
+  renderPreview();
 });
+function renderPreview() {
+  const u = localStorage.getItem("loggedInUser");
+  const tArr = JSON.parse(localStorage.getItem(`${u}_transactions`) || "[]");
+  const previewEl = document.getElementById("transaction-preview");
+  if (!previewEl) return;
+
+  previewEl.innerHTML = "";
+  const recent = [...tArr].slice(-3).reverse(); // Last 3 entries
+
+  recent.forEach(t => {
+    const li = document.createElement("li");
+    li.className = "transaction-item";
+
+    const iconColor = t.type === "income" ? "green" : "red";
+    const sign = t.type === "income" ? "+" : "-";
+    const date = t.date || new Date().toISOString().slice(0, 10);
+
+    li.innerHTML = `
+      <div class="icon-wrapper ${iconColor}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             class="icon">
+          <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+          <line x1="2" x2="22" y1="10" y2="10"></line>
+        </svg>
+      </div>
+
+      <div class="tx-details">
+        <strong>${t.desc}</strong>
+        <div class="tx-meta">${t.category} • ${date}</div>
+      </div>
+
+      <div class="tx-amount ${t.type === "income" ? "text-green" : "text-red"}">
+        ${sign}₹${t.amount.toLocaleString("en-IN")}
+      </div>
+    `;
+
+    previewEl.appendChild(li);
+  });
+}
+
 
 function logout() {
   localStorage.removeItem("loggedInUser");
