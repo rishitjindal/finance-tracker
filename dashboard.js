@@ -10,28 +10,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const incEl = document.getElementById("income");
   const expEl = document.getElementById("expense");
   const balEl = document.getElementById("balance");
+
   const expCtx = document.getElementById("expenseChart").getContext("2d");
   const trendCtx = document.getElementById("trendChart").getContext("2d");
 
   let tArr = JSON.parse(localStorage.getItem(`${u}_transactions`) || "[]");
 
-  // Update summary
+  // Summary
   let inc = 0, exp = 0;
   tArr.forEach(t => t.type === "income" ? inc += t.amount : exp += t.amount);
-  incEl.textContent = `₹${inc.toLocaleString("en-IN")}`;
-  expEl.textContent = `₹${exp.toLocaleString("en-IN")}`;
-  balEl.textContent = `₹${(inc - exp).toLocaleString("en-IN")}`;
+  incEl.textContent = inc.toLocaleString("en-IN");
+  expEl.textContent = exp.toLocaleString("en-IN");
+  balEl.textContent = (inc - exp).toLocaleString("en-IN");
 
   // Charts
+  const pieData = {};
+  tArr.filter(t => t.type === "expense").forEach(t => {
+    pieData[t.category] = (pieData[t.category] || 0) + t.amount;
+  });
+
   new Chart(expCtx, {
     type: 'pie',
     data: {
-      labels: [...new Set(tArr.filter(t => t.type === "expense").map(t => t.category))],
+      labels: Object.keys(pieData),
       datasets: [{
-        data: tArr.filter(t => t.type === "expense").reduce((acc, t) => {
-          acc[t.category] = (acc[t.category] || 0) + t.amount;
-          return acc;
-        }, {}),
+        data: Object.values(pieData),
         backgroundColor: ["#ef4444", "#3b82f6", "#10b981", "#facc15"]
       }]
     }
@@ -50,16 +53,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 🟢 Render 3 Recent Transactions
   renderPreview();
 });
+
+
 function renderPreview() {
   const u = localStorage.getItem("loggedInUser");
   const tArr = JSON.parse(localStorage.getItem(`${u}_transactions`) || "[]");
   const previewEl = document.getElementById("transaction-preview");
-  if (!previewEl) return;
+
+  if (!previewEl) {
+    console.warn("❌ Missing #transaction-preview");
+    return;
+  }
 
   previewEl.innerHTML = "";
-  const recent = [...tArr].slice(-3).reverse(); // Last 3 entries
+  const recent = [...tArr].slice(-3).reverse(); // last 3
 
   recent.forEach(t => {
     const li = document.createElement("li");
@@ -88,11 +98,9 @@ function renderPreview() {
         ${sign}₹${t.amount.toLocaleString("en-IN")}
       </div>
     `;
-
     previewEl.appendChild(li);
   });
 }
-
 
 function logout() {
   localStorage.removeItem("loggedInUser");
