@@ -1,125 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Goals - FinanceHub</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="layout">
+<body class="flex">
+  <!-- Sidebar -->
   <aside>
     <a href="dashboard.html" >
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9v9a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-  </svg>
-  Dashboard
-</a>
-<a href="transactions.html">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a4 4 0 00-8 0v2m12 4h-3m-6 0H5m6 4v2m0-2V9" />
-  </svg>
-  Transactions
-</a>
-
-<a href="goals.html" class="active-nav">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.5 0-3.3 1.3-4.5 3.5S5 16 5 17h14s-.7-2.5-2.5-5.5S13.5 8 12 8z" />
-  </svg>
-  Goals
-</a>
-
-<a href="emi.html">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3h8v4M4 11h16v10H4V11z" />
-  </svg>
-  EMI
-</a>
-
-<a href="investments.html">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3h2v5h3l-4 4-4-4h3V3z M4 21h16" />
-  </svg>
-  Investments
-</a>
-
-<button onclick="logout()">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-6 0V5a3 3 0 016 0v1" />
-  </svg>
-  Logout
-</button>
-
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l9-9 9 9v9a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+      </svg>
+      Dashboard
+    </a>
+    <a href="transactions.html">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 9V7a4 4 0 00-8 0v2m12 4h-3m-6 0H5m6 4v2m0-2V9" />
+      </svg>
+      Transactions
+    </a>
+    <a href="goals.html" class="active-nav">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8c-1.5 0-3.3 1.3-4.5 3.5S5 16 5 17h14s-.7-2.5-2.5-5.5S13.5 8 12 8z" />
+      </svg>
+      Goals
+    </a>
+    <a href="emi.html">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3h8v4M4 11h16v10H4V11z" />
+      </svg>
+      EMI
+    </a>
+    <a href="investments.html">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 3h2v5h3l-4 4-4-4h3V3z M4 21h16" />
+      </svg>
+      Investments
+    </a>
+    <button onclick="logout()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-6 0V5a3 3 0 016 0v1" />
+      </svg>
+      Logout
+    </button>
   </aside>
-  <main>
-    <h1>Your Goals</h1>
-    <p id="current-date" class="text-gray-500 mb-6"></p>
+
+  <!-- Main -->
+  <main style="flex-grow:1; padding:2rem;">
+    <h1>Financial Goals</h1>
+    <p class="text-gray-500">Set and track your financial objectives</p>
+
+    <!-- Summary Cards -->
+    <div class="card-grid" style="margin-top: 1.5rem;">
+      <div class="card">
+        <p>Active Goals</p>
+        <span id="goal-count">0</span>
+      </div>
+      <div class="card">
+        <p>Total Target</p>
+        <span id="goal-target">₹0</span>
+      </div>
+      <div class="card">
+        <p>Total Saved</p>
+        <span id="goal-saved">₹0</span>
+      </div>
+    </div>
 
     <!-- Goal Cards -->
-    <div id="goal-container" class="grid card-grid"></div>
+    <div class="goal-list" id="goal-list" style="margin-top: 2rem;"></div>
 
-    <!-- Add Goal Form -->
-    <form id="goal-form" class="card mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- Add New Goal -->
+    <form id="goal-form" style="margin-top:2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
       <input id="goal-desc" type="text" placeholder="Goal Description" required />
-      <input id="goal-target" type="number" placeholder="Target Amount" min="1" required />
+      <input id="goal-target" type="number" placeholder="Target Amount (₹)" required />
+      <input id="goal-saved-input" type="number" placeholder="Saved Amount (₹)" required />
       <button type="submit" class="bg-blue-600 text-white py-2 rounded">Add Goal</button>
     </form>
   </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const u = localStorage.getItem("loggedInUser");
-      if (!u) return location.href = "index.html";
-
-      document.getElementById("current-date").textContent = new Date().toLocaleDateString(undefined, {
-        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-      });
-
-      const goalContainer = document.getElementById("goal-container");
-      const form = document.getElementById("goal-form");
-      let goals = JSON.parse(localStorage.getItem(`${u}_goals`) || "[]");
-
-      function renderGoals() {
-        goalContainer.innerHTML = "";
-        if (goals.length === 0) {
-          goalContainer.innerHTML = `<p class="text-gray-500">No goals yet. Add one below!</p>`;
-          return;
-        }
-
-        goals.forEach((g, i) => {
-          const percent = Math.min(Math.round((g.saved || 0) / g.target * 100), 100);
-          const card = document.createElement("div");
-          card.className = "stat-card";
-          card.innerHTML = `
-            <h3>${g.desc}</h3>
-            <p>Target: ₹${g.target.toLocaleString("en-IN")}</p>
-            <p>Saved: ₹${(g.saved || 0).toLocaleString("en-IN")}</p>
-            <div style="background:#e5e7eb;height:8px;border-radius:9999px;margin-top:8px;">
-              <div style="width:${percent}%;background:#3b82f6;height:8px;border-radius:9999px;"></div>
-            </div>
-            <small>${percent}% completed</small>
-          `;
-          goalContainer.appendChild(card);
-        });
-      }
-
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        const desc = form["goal-desc"].value.trim();
-        const target = +form["goal-target"].value;
-        if (!desc || target <= 0) return alert("Enter valid goal details.");
-        goals.push({ desc, target, saved: 0 });
-        localStorage.setItem(`${u}_goals`, JSON.stringify(goals));
-        form.reset();
-        renderGoals();
-      });
-
-      renderGoals();
-    });
-
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      location.href = "index.html";
-    }
-  </script>
+  <script src="goals.js"></script>
 </body>
 </html>
