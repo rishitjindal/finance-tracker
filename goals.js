@@ -4,55 +4,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("goal-form");
   const list = document.getElementById("goal-list");
-
   let goals = JSON.parse(localStorage.getItem(`${u}_goals`) || "[]");
 
-  function renderGoals() {
+  const updateSummary = () => {
+    const totalTarget = goals.reduce((a, g) => a + g.target, 0);
+    const totalSaved = goals.reduce((a, g) => a + g.saved, 0);
+    document.getElementById("goal-count").textContent = goals.length;
+    document.getElementById("goal-target").textContent = `₹${totalTarget.toLocaleString()}`;
+    document.getElementById("goal-saved").textContent = `₹${totalSaved.toLocaleString()}`;
+  };
+
+  const renderGoals = () => {
     list.innerHTML = "";
-    let totalTarget = 0, totalSaved = 0;
-
     goals.forEach((g, i) => {
-      totalTarget += g.target;
-      totalSaved += g.saved;
+      const pct = Math.min((g.saved / g.target) * 100, 100);
+      const progressColor = pct >= 100 ? '#10b981' : '#3b82f6';
+      const badge = pct >= 100 ? '🎉 Completed' : `${pct.toFixed(1)}%`;
 
-      const percent = ((g.saved / g.target) * 100).toFixed(1);
       const card = document.createElement("div");
-      card.className = "card";
-      card.style.marginBottom = "1rem";
-
+      card.className = "goal-card";
       card.innerHTML = `
-        <h3>${g.desc}</h3>
-        <p>Progress</p>
-        <div style="background:#e5e7eb;height:8px;border-radius:4px;overflow:hidden;">
-          <div style="width:${percent}%;height:100%;background:#10b981;"></div>
+        <div class="card-header">
+          <h3>${g.desc}</h3>
+          <button class="delete-btn">×</button>
         </div>
-        <small>${percent}% complete</small><br/>
-        <small class="text-gray-500">₹${g.saved.toLocaleString()} / ₹${g.target.toLocaleString()}</small>
+        <p class="goal-stats">₹${g.saved.toLocaleString()} / ₹${g.target.toLocaleString()}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${pct}%; background-color:${progressColor};"></div>
+        </div>
+        <div class="card-footer">
+          <span class="badge" style="background:${progressColor}">${badge}</span>
+        </div>
       `;
+      card.querySelector(".delete-btn").onclick = () => {
+        goals.splice(i, 1);
+        localStorage.setItem(`${u}_goals`, JSON.stringify(goals));
+        render();
+      };
 
       list.appendChild(card);
     });
 
-    document.getElementById("goal-count").textContent = goals.length;
-    document.getElementById("goal-target").textContent = `₹${totalTarget.toLocaleString()}`;
-    document.getElementById("goal-saved").textContent = `₹${totalSaved.toLocaleString()}`;
-  }
+    updateSummary();
+  };
 
-  form.addEventListener("submit", (e) => {
+  const render = () => { renderGoals(); };
+
+  form.addEventListener("submit", e => {
     e.preventDefault();
     const desc = form["goal-desc"].value.trim();
     const target = +form["goal-target"].value;
     const saved = +form["goal-saved-input"].value;
-
-    if (!desc || target <= 0 || saved < 0 || saved > target) return alert("Enter valid data");
-
+    if (!desc || target <= 0 || saved < 0 || saved > target) {
+      return alert("Please enter valid values (saved ≤ target).");
+    }
     goals.push({ desc, target, saved });
     localStorage.setItem(`${u}_goals`, JSON.stringify(goals));
     form.reset();
-    renderGoals();
+    render();
   });
 
-  renderGoals();
+  render();
 });
 
 function logout() {
